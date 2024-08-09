@@ -8,20 +8,20 @@ Spotifyly, Playlist To Story.
 
 ## Installation🚀
 
-Spotifly has been designed for gradual adoption from the start.
+Spotifly has been designed for "Easy To Use" from the start.
 
 * Use [Quick Start](https://youtube.com) to get a start using this software.
 
-## Documentation
+## Documentation✨
 
-You can find the React documentation [on the website🏡](https://react.dev/).
+You can find the Spotifly documentation [on the website🏡](https://react.dev/).
 
 Check out the [Getting Started](https://react.dev/learn) page for a quick overview.
 
 The documentation is divided into several sections:
 
 * [Quick Start](https://youtube.com)
-* [COming Soon...](https://youtube.com)
+* [Coming Soon...](https://youtube.com)
 
 You can improve it by sending pull requests to [this repository](https://github.com/reactjs/react.dev).
 
