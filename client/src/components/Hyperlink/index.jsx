@@ -1,14 +1,15 @@
+import { Link } from "react-router-dom";
+
 /* eslint-disable react/prop-types */
-const Hyperlink = ({ classname, children, href }) => {
+const Hyperlink = ({ classname, children, to, target = "_self" }) => {
   return (
-    <a
-      href={href}
-      className={`${classname} font-semibold rounded-lg py-5 px-12`}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Link
+      to={to}
+      target={target}
+      className={`${classname} font-semibold rounded-lg`}
     >
       {children}
-    </a>
+    </Link>
   );
 };
 

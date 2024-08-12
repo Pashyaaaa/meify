@@ -7,7 +7,7 @@ const Button = ({
 }) => {
   return (
     <button
-      className={`${classname} font-semibold rounded-lg px-8 h-10`}
+      className={`${classname} font-semibold rounded-lg`}
       type={type}
       onClick={onClick}
     >
