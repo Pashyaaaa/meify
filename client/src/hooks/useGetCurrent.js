@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 
 const useGetCurrent = () => {
-  const [userCurrent, setUserCurrent] = useState("");
-  const [userCurrentArtist, setUserCurrentArtist] = useState("");
-  const [userCurrentPoster, setCurrentPoster] = useState("");
-  const [userCurrentDuration, setUserCurrentDuration] = useState("");
-  const [isPaused, setIsPaused] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState({
+    title: "",
+    artist: "",
+    duration: "",
+    poster: "",
+    isPlaying: false,
+    currentTime: 0,
+  });
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,15 +34,17 @@ const useGetCurrent = () => {
         const artisCurrent = data.item.artists[0].name;
         const durationCurrent = data.item.duration_ms;
         const posterCurrent = data.item.album.images[0].url;
-        const isPaused = data.actions.disallows;
+        const isPlaying = data.is_playing;
+        const progressCurrent = data.progress_ms;
 
-        setUserCurrent(titleCurrent);
-        setUserCurrentArtist(artisCurrent);
-        setUserCurrentDuration(durationCurrent);
-        setCurrentPoster(posterCurrent);
-        setIsPaused(isPaused);
-
-        console.log(data);
+        setCurrentTrack({
+          title: titleCurrent,
+          artist: artisCurrent,
+          duration: durationCurrent,
+          poster: posterCurrent,
+          isPlaying: isPlaying,
+          currentTime: progressCurrent,
+        });
       } catch (error) {
         setError(error.message);
       } finally {
@@ -48,14 +53,22 @@ const useGetCurrent = () => {
     };
 
     fetchCurrent();
+
+    // let intervalId;
+    // if (!isPaused) {
+    //   intervalId = setInterval(() => {
+    //     setCurrentTime((prevTime) => prevTime + 1000); // Tambahkan 1 detik
+    //   }, 1000);
+    // }
+
+    // return () => {
+    //   clearInterval(intervalId);
+    // };
   }, []);
+  // dependencies di isi isPaused
 
   return {
-    userCurrent,
-    userCurrentArtist,
-    userCurrentDuration,
-    userCurrentPoster,
-    isPaused,
+    currentTrack,
     loading,
     error,
   };

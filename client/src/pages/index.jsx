@@ -6,6 +6,8 @@ import { useSpotifyAuth } from "../hooks/useSpotifyAuth";
 import { useModal } from "../hooks/useModal";
 import useGetPlaylist from "../hooks/useGetPlaylist";
 import useGetCurrent from "../hooks/useGetCurrent";
+import MainContent from "../components/MainContent";
+import useGetTop from "../hooks/useGetTop";
 
 const Index = () => {
   const {
@@ -26,15 +28,12 @@ const Index = () => {
 
   const { isModalOpen, toggleModal } = useModal();
   const { userPlaylist } = useGetPlaylist();
-  const {
-    userCurrent,
-    userCurrentPoster,
-    userCurrentArtist,
-    userCurrentDuration,
-    isPaused,
-  } = useGetCurrent();
+  const { currentTrack } = useGetCurrent();
+  const { userTrack } = useGetTop();
 
-  let durationInSeconds = Math.floor(userCurrentDuration / 1000); // Ubah milidetik ke detik
+  let durationInSeconds = Math.floor(
+    (currentTrack.duration - currentTrack.currentTime) / 1000
+  );
 
   let formattedTime = [
     Math.floor(durationInSeconds / 3600)
@@ -47,11 +46,11 @@ const Index = () => {
   ].join(":");
 
   return (
-    <div className="w-screen h-screen">
-      {!token ? (
+    <>
+      {/* {!token ? (
         <div className=" bg-black flex flex-col gap-5 justify-center items-center w-screen h-screen">
           <h1 className="font-mono text-white text-xl md:text-2xl">
-            Welcome To Spotify.ly 🚀
+            Welcome To Youify🚀
           </h1>
           <svg
             width="100"
@@ -81,105 +80,136 @@ const Index = () => {
             Login Spotify
           </Hyperlink>
         </div>
-      ) : (
-        <div className="bg-slate-900 h-screen">
-          <Navbar />
-          <header className="pt-5 md:px-16 flex justify-center items-center md:justify-end gap-4">
-            <div className="relative group w-20 h-20 md:w-24 md:h-24">
-              <img
-                src={userImage || "./dummyuser.jpeg"}
-                alt="Profile Picture"
-                loading="lazy"
-                className="rounded-full w-full h-full object-cover object-center transition-all duration-300 group-hover:blur-sm"
-              />
-              <Hyperlink
-                to={userURL}
-                target="_blank"
-                classname="absolute inset-0 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+      ) : ( */}
+      <div className="bg-slate-900 h-screen pb-48">
+        <Navbar />
+        <header className="pt-5 md:px-16 flex justify-center items-center md:justify-end gap-4">
+          <div className="relative group w-20 h-20 md:w-24 md:h-24">
+            <img
+              src={userImage || "./dummyuser.jpeg"}
+              alt="Profile Picture"
+              loading="lazy"
+              className="rounded-full w-full h-full object-cover object-center transition-all duration-300 group-hover:blur-sm"
+            />
+            <Hyperlink
+              to={userURL}
+              target="_blank"
+              classname="absolute inset-0 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity group-hover:border"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                viewBox="0 0 24 24"
+                width="24"
+                fill="white"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  fill="white"
-                >
-                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2.92-1.06L14.44 7.66l1.41 1.41L7.34 17.6H5.92v-1.41zm13.54-9.54c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 00-1.41 0L14.34 4.66l3.75 3.75 1.37-1.37z" />
-                </svg>
+                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2.92-1.06L14.44 7.66l1.41 1.41L7.34 17.6H5.92v-1.41zm13.54-9.54c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 00-1.41 0L14.34 4.66l3.75 3.75 1.37-1.37z" />
+              </svg>
+            </Hyperlink>
+          </div>
+          <div className="flex flex-col gap-1">
+            <div className="mb-1">
+              <Hyperlink to={userURL} target="_blank">
+                <div className="font-semibold text-green-500 text-sm md:text-base">
+                  Welcome,{" "}
+                  <span className="underline-offset-4 underline">
+                    {display_name
+                      ? display_name.length > 13
+                        ? display_name.substring(0, 13) + "..."
+                        : display_name
+                      : "Unknown User".substring(0, 20)}
+                  </span>
+                </div>
+              </Hyperlink>
+              <Hyperlink
+                classname="text-white text-xs"
+                target="_blank"
+                to="https://open.spotify.com"
+              >
+                Your Playlist: {userPlaylist || 0}
               </Hyperlink>
             </div>
-            <div className="flex flex-col gap-2">
-              <div className="mb-1">
-                <Hyperlink to={userURL} target="_blank">
-                  <div className="font-semibold text-green-500 text-sm md:text-base">
-                    Welcome,{" "}
-                    <span className="underline-offset-4 underline">
-                      {display_name
-                        ? display_name.length > 13
-                          ? display_name.substring(0, 13) + "..."
-                          : display_name
-                        : "Unknown User".substring(0, 20)}
-                    </span>
-                  </div>
-                </Hyperlink>
-                <Hyperlink
-                  classname="text-white text-sm"
-                  target="_blank"
-                  to="https://open.spotify.com"
-                >
-                  Your Playlist: {userPlaylist || 0}
-                </Hyperlink>
-              </div>
-              <Button
-                classname="bg-green-500 text-xs md:text-base text-white py-2 md:py-2"
-                onClick={toggleModal}
-              >
-                Settings
-              </Button>
-            </div>
-
-            {isModalOpen && (
-              <Modal toggle={toggleModal} logout={logout} userUrl={userURL} />
-            )}
-          </header>
-
-          <div
-            id="currently-playing"
-            className="w-full relative md:absolute md:-top-12 md:-left-56 lg:-left-12 -left-8 pt-8 text-sm md:text-md flex justify-start md:justify-center lg:justify-start items-center gap-5 "
-          >
-            <div
-              id="image-current"
-              className={`relative ${isPaused.resuming ? "animate-spin" : ""}`}
+            <Button
+              classname="bg-green-500 text-xs md:text-base text-white py-2 md:py-2"
+              onClick={toggleModal}
             >
-              <img
-                src="./cd-icon.png"
-                alt="Cd's"
-                className="w-28 h-28 md:w-40 md:h-40"
-              />
-              <img
-                src={userCurrentPoster ? userCurrentPoster : "./dummyuser.jpeg"}
-                alt=""
-                className="absolute rounded-full w-12 h-12 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-              />
-            </div>
-            <div className="text-current">
-              <ul className="text-white">
-                <li>Currently {isPaused.resuming ? "Playing" : "Paused"}:</li>
-                <li className="font-mono">
-                  {userCurrentArtist ? userCurrentArtist : "Spotify"} -{" "}
-                  {userCurrent ? userCurrent : "Ads Or Not Playing Anything"}
-                </li>
-                <li>Duration {formattedTime}</li>
-              </ul>
-            </div>
+              Settings
+            </Button>
           </div>
 
-          <main>
-            <h1 className="text-white">Next: Top Music And Genre&apos;s</h1>
-          </main>
+          {isModalOpen && (
+            <Modal toggle={toggleModal} logout={logout} userUrl={userURL} />
+          )}
+        </header>
+
+        <div
+          id="currently-playing"
+          className=" relative md:absolute md:-top-12 md:-left-56 lg:-left-12 -left-8 pt-3 text-sm md:text-md flex justify-start md:justify-center lg:justify-start items-center gap-4"
+        >
+          <div
+            id="image-current"
+            className={`relative p-3 ${
+              currentTrack.isPlaying && currentTrack.poster
+                ? "animate-spin"
+                : ""
+            }`}
+          >
+            <img
+              src="./cd-icon.png"
+              alt="Cd's"
+              className={`w-28 md:w-40 md:h-40`}
+            />
+            <img
+              src={
+                currentTrack.poster ? currentTrack.poster : "./dummyuser.jpeg"
+              }
+              alt=""
+              className="absolute rounded-full w-12 h-12 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            />
+          </div>
+          <div className="text-current">
+            <ul className="text-white">
+              <li>
+                Currently {currentTrack.isPlaying ? "Playing" : "Paused"}:
+              </li>
+              <li className="font-mono text-xs md:text-base">
+                {currentTrack.artist ? currentTrack.artist : "Spotify"} -{" "}
+                {currentTrack.title
+                  ? currentTrack.title
+                  : "Ads Or Not Playing Anything"}
+              </li>
+              <li className="text-xs">Duration - {formattedTime}</li>
+            </ul>
+          </div>
         </div>
-      )}
-    </div>
+
+        <main>
+          <h1 className="text-white text-center text-3xl mt-2 md:text-5xl font-serif">
+            <span className="font-mono text-green-500">Fun</span>
+            ify
+          </h1>
+          <p className="text-white text-xs text-center">
+            Fun-ify, Playlist to Story
+          </p>
+
+          <div className="flex md:flex-col items-center justify-between mt-8 p-4">
+            <div className="w-[40%]">
+              <MainContent
+                align="items-center"
+                child="Your Top Tracks"
+              ></MainContent>
+            </div>
+            <div className="w-[40%]">
+              <MainContent
+                align="items-center"
+                child="Your Top Artists"
+              ></MainContent>
+            </div>
+          </div>
+        </main>
+      </div>
+      {/* )} */}
+    </>
   );
 };
 

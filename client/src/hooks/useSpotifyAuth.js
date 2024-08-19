@@ -5,7 +5,7 @@ export const useSpotifyAuth = () => {
   const REDIRECT_URI = "http://localhost:5173";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const SCOPE =
-    "user-library-read%20playlist-read-private%20user-read-currently-playing";
+    "user-library-read%20playlist-read-private%20user-read-currently-playing%20user-top-read";
   const RESPONSE_TYPE = "token";
 
   const [token, setToken] = useState("");
@@ -17,6 +17,7 @@ export const useSpotifyAuth = () => {
   useEffect(() => {
     const hash = window.location.hash;
     let token = localStorage.getItem("token");
+    let expireIn = "";
 
     if (!token && hash) {
       token = hash
@@ -25,7 +26,28 @@ export const useSpotifyAuth = () => {
         .find((elm) => elm.startsWith("access_token"))
         .split("=")[1];
 
+      expireIn = hash
+        .substring(1)
+        .split("&")
+        .find((elm) => elm.startsWith("expires_in"))
+        .split("=")[1];
+
+      expireIn = parseInt(expireIn, 10) * 1000;
+
+      const now = new Date();
+      const expires = new Date(now.getTime() + expireIn);
+
+      const formatTime = (date) => {
+        const hours = String(date.getHours()).padStart(2, "0");
+        const minutes = String(date.getMinutes()).padStart(2, "0");
+        const seconds = String(date.getSeconds()).padStart(2, "0");
+        return `${hours}:${minutes}:${seconds}`;
+      };
+
+      const formattedExpire = `${formatTime(now)} -> ${formatTime(expires)}`;
+
       window.localStorage.setItem("token", token);
+      window.localStorage.setItem("tokenExpire", formattedExpire);
       window.location.hash = "";
     }
 
@@ -34,7 +56,6 @@ export const useSpotifyAuth = () => {
     }
 
     setToken(token);
-    // console.log(token);
   }, []);
 
   const checkTokenValidity = async (token) => {
