@@ -1,5 +1,7 @@
 import Hyperlink from "../components/Hyperlink";
 const ErrorPage = () => {
+  const token = localStorage.getItem("token");
+  localStorage.removeItem(token);
   return (
     <div className="flex flex-col gap-5 justify-center items-center h-screen bg-black">
       <p className="text-5xl font-bold text-white">404</p>

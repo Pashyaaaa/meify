@@ -7,7 +7,6 @@ import { useModal } from "../hooks/useModal";
 import useGetPlaylist from "../hooks/useGetPlaylist";
 import useGetCurrent from "../hooks/useGetCurrent";
 import MainContent from "../components/MainContent";
-import useGetTop from "../hooks/useGetTop";
 
 const Index = () => {
   const {
@@ -29,7 +28,6 @@ const Index = () => {
   const { isModalOpen, toggleModal } = useModal();
   const { userPlaylist } = useGetPlaylist();
   const { currentTrack } = useGetCurrent();
-  const { userTrack } = useGetTop();
 
   let durationInSeconds = Math.floor(
     (currentTrack.duration - currentTrack.currentTime) / 1000
@@ -81,7 +79,14 @@ const Index = () => {
           </Hyperlink>
         </div>
       ) : ( */}
-      <div className="bg-slate-900 h-screen pb-48">
+      <div className="h-full">
+        <video
+          src="./videoBg.mp4"
+          autoPlay
+          loop
+          muted
+          className="w-screen absolute object-fill -z-50 h-3/4"
+        ></video>
         <Navbar />
         <header className="pt-5 md:px-16 flex justify-center items-center md:justify-end gap-4">
           <div className="relative group w-20 h-20 md:w-24 md:h-24">
@@ -144,7 +149,7 @@ const Index = () => {
 
         <div
           id="currently-playing"
-          className=" relative md:absolute md:-top-12 md:-left-56 lg:-left-12 -left-8 pt-3 text-sm md:text-md flex justify-start md:justify-center lg:justify-start items-center gap-4"
+          className="relative md:absolute md:-top-12 md:-left-12 -left-8 pt-3 text-sm md:text-md flex justify-start md:justify-center lg:justify-start items-center gap-4"
         >
           <div
             id="image-current"
@@ -183,30 +188,31 @@ const Index = () => {
           </div>
         </div>
 
-        <main>
-          <h1 className="text-white text-center text-3xl mt-2 md:text-5xl font-serif">
+        <main className="bg-slate-950 py-12">
+          <h1 className="text-white text-center text-3xl  md:text-5xl font-serif">
             <span className="font-mono text-green-500">Fun</span>
             ify
           </h1>
           <p className="text-white text-xs text-center">
-            Fun-ify, Playlist to Story
+            Fun-ify, Wrapped to Story
           </p>
 
-          <div className="flex md:flex-col items-center justify-between mt-8 p-4">
-            <div className="w-[40%]">
-              <MainContent
-                align="items-center"
-                child="Your Top Tracks"
-              ></MainContent>
+          <div className="flex md:block items-center justify-between px-4 pb-20">
+            <div className="w-[40%] md:w-full">
+              <MainContent title="Your Top Tracks"></MainContent>
             </div>
-            <div className="w-[40%]">
+            <div className="w-[40%] md:w-full">
               <MainContent
-                align="items-center"
-                child="Your Top Artists"
+                title="Your Top Artists"
+                classname="text-right"
               ></MainContent>
             </div>
           </div>
         </main>
+
+        <div className="bg-slate-700">
+          <h1>test</h1>
+        </div>
       </div>
       {/* )} */}
     </>
