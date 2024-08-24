@@ -8,7 +8,7 @@ const Navbar = () => {
     location.pathname === "/" ? "translate-x-0" : "translate-x-full";
 
   return (
-    <nav className=" fixed flex flex-col justify-between items-center bottom-14 left-1/2 transform -translate-x-1/2 w-40 md:w-52">
+    <nav className=" fixed flex flex-col justify-between items-center bottom-14 left-1/2 transform -translate-x-1/2 w-40 md:w-52 z-50">
       <div className="relative">
         <div
           className={`absolute top-0 left-0 h-full w-1/2 bg-green-500 rounded-full transform transition-transform duration-300 ${togglePosition}`}

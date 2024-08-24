@@ -8,9 +8,9 @@ const Home = () => {
   const [name, setName] = useState("");
 
   return (
-    <div className="bg-slate-900 h-screen">
+    <div className="bg-slate-900 flex justify-center items-center h-screen">
       <Navbar></Navbar>
-      <h1>Welcome, {name.display_name}</h1>
+      <h1 className="text-white text-center">Welcome to About ✨</h1>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 const useGetTop = () => {
   const [userTrack, setUserTrack] = useState();
+  const [userArtist, setUserArtist] = useState();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,7 +11,7 @@ const useGetTop = () => {
     const fetchTracks = async () => {
       let token = localStorage.getItem("token");
       try {
-        const response = await fetch(
+        const tracks = await fetch(
           `https://api.spotify.com/v1/me/top/tracks?limit=5`,
           {
             headers: {
@@ -19,12 +20,22 @@ const useGetTop = () => {
             },
           }
         );
-        if (!response.ok) {
+        const artist = await fetch(
+          `https://api.spotify.com/v1/me/top/artists?limit=5`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!tracks.ok || !artist.ok) {
           throw new Error("Network response was not ok");
         }
-        const data = await response.json();
-        setUserTrack(data.items);
-        // console.log(data);
+        const dataTracks = await tracks.json();
+        const dataArtist = await artist.json();
+        setUserTrack(dataTracks.items);
+        setUserArtist(dataArtist.items);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -37,6 +48,7 @@ const useGetTop = () => {
 
   return {
     userTrack,
+    userArtist,
     loading,
     error,
   };
