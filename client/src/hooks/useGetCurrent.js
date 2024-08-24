@@ -12,6 +12,7 @@ const useGetCurrent = () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isPaused, setIsPaused] = useState(false); // Menambahkan state isPaused
 
   useEffect(() => {
     const fetchCurrent = async () => {
@@ -52,25 +53,22 @@ const useGetCurrent = () => {
       }
     };
 
-    fetchCurrent();
+    const intervalId = setInterval(() => {
+      if (!isPaused) {
+        fetchCurrent();
+      }
+    }, 1000);
 
-    // let intervalId;
-    // if (!isPaused) {
-    //   intervalId = setInterval(() => {
-    //     setCurrentTime((prevTime) => prevTime + 1000); // Tambahkan 1 detik
-    //   }, 1000);
-    // }
-
-    // return () => {
-    //   clearInterval(intervalId);
-    // };
-  }, []);
-  // dependencies di isi isPaused
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [isPaused]);
 
   return {
     currentTrack,
     loading,
     error,
+    setIsPaused, // Expose setIsPaused to control the fetching interval
   };
 };
 
