@@ -42,6 +42,7 @@ const Index = () => {
       .padStart(2, "0"), // Menit
     (durationInSeconds % 60).toString().padStart(2, "0"), // Detik
   ].join(":");
+  console.log(error);
 
   return (
     <>
@@ -68,9 +69,7 @@ const Index = () => {
         C143.22,75.056,138.172,76.616,134.396,74.376z"
             />
           </svg>
-          {error && (
-            <h1 className="text-red-500 font-semibold">Token Is Invalid-!</h1>
-          )}
+          {error && <h1 className="text-red-500 font-semibold">{error}</h1>}
           <Hyperlink
             classname="bg-green-500 text-white py-4 px-8"
             to={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}

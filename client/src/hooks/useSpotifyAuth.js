@@ -48,7 +48,7 @@ export const useSpotifyAuth = () => {
 
       window.localStorage.setItem("token", token);
       window.localStorage.setItem("tokenExpire", formattedExpire);
-      // window.location.hash = "";
+      window.location.hash = "";
     }
 
     if (token) {
