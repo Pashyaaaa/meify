@@ -5,6 +5,7 @@ export default {
     fontFamily: {
       montserrat: ["montserrat", "sans-serif"],
       lato: ["lato", "sans-serif"],
+      pacifico: ["Pacifico", "sans-serif"],
     },
     extend: {},
   },

@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 
 export const useSpotifyAuth = () => {
   const CLIENT_ID = "4a0bfe39446149d38768668336a31795"; //import.meta.env.VITE_CLIENT_ID;
-  const REDIRECT_URI = "https://funify.vercel.app";
+  // const REDIRECT_URI = "https://funify.vercel.app";
+  const REDIRECT_URI = "http://localhost:5173";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const SCOPE =
     "user-library-read%20playlist-read-private%20user-read-currently-playing%20user-top-read";

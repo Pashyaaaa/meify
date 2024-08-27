@@ -1,12 +1,11 @@
 import Hyperlink from "../components/Hyperlink";
 import Button from "../components/Button";
-import Navbar from "../components/Navbar";
 import Modal from "../components/Modal";
 import { useSpotifyAuth } from "../hooks/useSpotifyAuth";
-import { useModal } from "../hooks/useModal";
 import useGetPlaylist from "../hooks/useGetPlaylist";
 import useGetCurrent from "../hooks/useGetCurrent";
 import MainContent from "../components/MainContent";
+import { useState } from "react";
 
 const Index = () => {
   const {
@@ -25,9 +24,11 @@ const Index = () => {
 
   const display_name = data.display_name;
 
-  const { isModalOpen, toggleModal } = useModal();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { userPlaylist } = useGetPlaylist();
   const { currentTrack } = useGetCurrent();
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
 
   let durationInSeconds = Math.floor(
     (currentTrack.duration - currentTrack.currentTime) / 1000
@@ -42,14 +43,16 @@ const Index = () => {
       .padStart(2, "0"), // Menit
     (durationInSeconds % 60).toString().padStart(2, "0"), // Detik
   ].join(":");
-  console.log(error);
 
   return (
     <>
       {!token ? (
-        <div className=" bg-black flex flex-col gap-5 justify-center items-center w-screen h-screen">
-          <h1 className="font-mono text-white text-xl md:text-2xl">
-            Welcome To Youify🚀
+        <div className=" bg-slate-950 flex flex-col gap-5 justify-center items-center w-screen h-screen">
+          <h1 className="font-pacifico text-white text-xl md:text-2xl">
+            Welcome To{" "}
+            <span className="text-green-500 font-bold font-montserrat leading-4">
+              Meify
+            </span>
           </h1>
           <svg
             width="100"
@@ -74,8 +77,14 @@ const Index = () => {
             classname="bg-green-500 text-white py-4 px-8"
             to={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}
           >
-            Login Spotify
+            Get Started
           </Hyperlink>
+          <div className="text-white font-montserrat md:text-base text-xs">
+            By continuing you agree with our{" "}
+            <Hyperlink classname="underline text-blue-700" to="/privacy">
+              Privacy Policy
+            </Hyperlink>
+          </div>
         </div>
       ) : (
         <div className="h-full">
@@ -86,8 +95,7 @@ const Index = () => {
             muted
             className="w-screen absolute object-fill -z-50 h-3/4"
           ></video>
-          <Navbar />
-          <header className="pt-5 md:px-16 flex justify-center items-center md:justify-end gap-4">
+          <header className="pt-3 md:py-5 md:px-16 flex justify-center items-center md:justify-end gap-4">
             <div className="relative group w-20 h-20 md:w-24 md:h-24">
               <img
                 src={userImage || "./dummyuser.jpeg"}
@@ -141,9 +149,21 @@ const Index = () => {
               </Button>
             </div>
 
-            {isModalOpen && (
-              <Modal toggle={toggleModal} logout={logout} userUrl={userURL} />
-            )}
+            <Modal
+              isOpen={isModalOpen}
+              toggleModal={toggleModal}
+              title="Example Modal"
+              content={<p>This is the content of the modal.</p>}
+              footer={
+                <Button
+                  onClick={toggleModal}
+                  classname="bg-red-500 text-white px-4 py-2 rounded"
+                >
+                  Close
+                </Button>
+              }
+              layout="wide"
+            />
           </header>
 
           <div
@@ -182,18 +202,20 @@ const Index = () => {
                     ? currentTrack.title
                     : "Ads Or Not Playing Anything"}
                 </li>
-                <li className="text-xs font-lato">
-                  Duration - {formattedTime}
-                </li>
+                <li className="text-xs font-lato">{formattedTime}</li>
               </ul>
             </div>
           </div>
 
           <main className="bg-slate-950 py-12">
-            <h1 className="text-white text-center text-3xl font-lato md:text-5xl font-serif">
-              <span className="font-mono text-green-500">Fun</span>
-              ify
-            </h1>
+            <div className="text-white text-center font-lato font-serif flex justify-center items-center">
+              <div className="animate-bounce text-xl md:text-3xl">🏡</div>
+              <h1 className="text-3xl md:text-5xl">
+                <span className="font-pacifico text-green-500">Fun</span>
+                ify
+              </h1>
+              <div className="animate-bounce text-xl md:text-3xl">🎧</div>
+            </div>
             <p className="text-white text-xs text-center font-motserrat">
               Fun-ify, Wrapped to Story
             </p>
@@ -214,8 +236,8 @@ const Index = () => {
                 ></MainContent>
               </div>
             </div>
-            <div className="flex justify-center items-center">
-              <Hyperlink classname="text-white text-center border px-5 md:px-10 py-3 md:py-5 border-green-500 hover:bg-green-500 hover:text-black transition-colors duration-500">
+            <div className="flex justify-center items-center md:p-8 p-2">
+              <Hyperlink classname="text-white text-center border px-5 md:px-10 py-3 md:py-5 border-green-500 hover:bg-green-500 hover:text-black transition-colors duration-200">
                 More...
               </Hyperlink>
             </div>

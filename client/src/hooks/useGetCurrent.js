@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { throttle } from "lodash";
 
 const useGetCurrent = () => {
   const [currentTrack, setCurrentTrack] = useState({
@@ -12,7 +13,7 @@ const useGetCurrent = () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isPaused, setIsPaused] = useState(false); // Menambahkan state isPaused
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     const fetchCurrent = async () => {
@@ -53,22 +54,29 @@ const useGetCurrent = () => {
       }
     };
 
+    // Gunakan throttle untuk membatasi pemanggilan fetchCurrent
+    const throttledFetch = throttle(
+      fetchCurrent,
+      currentTrack.isPlaying ? 2000 : 30000
+    ); // Panggil sekali setiap 5 detik
+
     const intervalId = setInterval(() => {
       if (!isPaused) {
-        fetchCurrent();
+        throttledFetch();
       }
-    }, 1000);
+    }, 1000); // Interval polling tetap 1 detik, tetapi fetch hanya dilakukan setiap 5 detik
 
     return () => {
       clearInterval(intervalId);
+      throttledFetch.cancel();
     };
-  }, [isPaused]);
+  }, []);
 
   return {
     currentTrack,
     loading,
     error,
-    setIsPaused, // Expose setIsPaused to control the fetching interval
+    setIsPaused,
   };
 };
 

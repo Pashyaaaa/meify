@@ -1,41 +1,35 @@
 /* eslint-disable react/prop-types */
-import Button from "../Button";
-import Hyperlink from "../Hyperlink";
 
-const Modal = ({ toggle, logout, userUrl }) => {
+const Modal = ({
+  isOpen,
+  toggleModal,
+  title,
+  content,
+  footer,
+  layout = "default",
+}) => {
+  if (!isOpen) return null;
+
+  const layoutClasses = {
+    default: "p-6 max-w-lg mx-auto bg-white rounded-lg shadow-md",
+    wide: "p-6 max-w-2xl mx-auto bg-white rounded-lg shadow-md",
+    narrow: "p-4 max-w-sm mx-auto bg-white rounded-lg shadow-md",
+  };
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg px-6 pt-8 pb-12 w-80">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg text-right font-semibold">Settings</h2>
-          <Button
-            onClick={toggle}
-            classname="bg-red-500 text-white py-1 px-4 rounded"
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className={layoutClasses[layout]}>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">{title}</h2>
+          <button
+            onClick={toggleModal}
+            className="text-gray-500 hover:text-gray-700"
           >
-            Close
-          </Button>
+            &times;
+          </button>
         </div>
-        <div className="w-full h-1 bg-black mb-4 rounded-full"></div>
-        <ul className="space-y-5">
-          <li>
-            <Hyperlink to={userUrl} classname="underline underline-offset-8">
-              Edit Profile🚀
-            </Hyperlink>
-          </li>
-          <li>
-            <Hyperlink to="/contact" classname="underline underline-offset-8">
-              Contact☎️
-            </Hyperlink>
-          </li>
-          <li>
-            <Button
-              onClick={logout}
-              classname="text-red-500 underline underline-offset-8"
-            >
-              Logout Profile🏡
-            </Button>
-          </li>
-        </ul>
+        <div className="mb-4">{content}</div>
+        {footer && <div className="flex justify-end">{footer}</div>}
       </div>
     </div>
   );

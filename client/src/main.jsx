@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-import About from "./pages/about";
 import ErrorPage from "./pages/error";
 import Index from "./pages";
+import PrivacyPolicy from "./pages/privacypolicy";
 
 const router = createBrowserRouter([
   {
@@ -13,8 +13,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/about",
-    element: <About />,
+    path: "/privacy",
+    element: <PrivacyPolicy />,
   },
 ]);
 
