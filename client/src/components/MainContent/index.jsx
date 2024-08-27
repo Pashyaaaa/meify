@@ -59,12 +59,20 @@ const ContentItem = ({ res, type, number }) => {
             onLoad={handleLoad}
             loading="lazy"
           />
-          <p className="text-[0.6rem] break-all md:text-xs text-green-500 md:group-hover:scale-125 transition-all">
-            {res.name}
+          <p className="text-[0.6rem] break-all md:text-sm font-lato text-green-500 md:group-hover:scale-125 transition-all">
+            {res.name.length < 16
+              ? res.name
+              : res.name.substring(0, 16) + "..."}
           </p>
-          <p className="text-[0.5rem] break-all md:text-xs text-white md:group-hover:scale-110 transition-all">
+          <p className="text-[0.5rem] break-all md:text-sm font-lato text-white md:group-hover:scale-110 transition-all">
             {type === "track"
-              ? res.artists.map((artist) => artist.name).join(", ")
+              ? res.artists
+                  .map((artist) =>
+                    artist.name.length < 15
+                      ? artist.name
+                      : artist.name.substring(0, 15) + "..."
+                  )
+                  .join(", ")
               : `Followers: ${res.followers.total.toLocaleString()}`}
           </p>
         </div>
@@ -85,10 +93,14 @@ const MainContent = ({ title, classname, type }) => {
       <SkeletonItem key={index} number={index + 1} />
     ));
   } else if (error) {
-    child_content = <p className="text-white">Error loading data.</p>;
-  } else if (userTrack.length === 0 && userArtist.length === 0) {
     child_content = (
-      <p className="text-white text-md sm:text-lg md:text-xl font-semibold font-montserrat py-8">
+      <p className="text-white font-montserrat font-semibold text-center py-12">
+        Error loading data.
+      </p>
+    );
+  } else if ((userTrack.length === 0 && userArtist.length === 0) || error) {
+    child_content = (
+      <p className="text-white text-center text-sm sm:text-lg md:text-xl font-semibold font-montserrat py-8">
         You don&apos;t have any top {type === "track" ? "Tracks" : "Artists"}.{" "}
         <a
           href="https://open.spotify.com"

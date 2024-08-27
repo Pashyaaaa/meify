@@ -48,7 +48,7 @@ const Index = () => {
     <>
       {!token ? (
         <div className=" bg-slate-950 flex flex-col gap-5 justify-center items-center w-screen h-screen">
-          <h1 className="font-pacifico text-white text-xl md:text-2xl">
+          <h1 className="font-pacifico text-white text-4xl md:text-6xl">
             Welcome To{" "}
             <span className="text-green-500 font-bold font-montserrat leading-4">
               Meify
@@ -122,7 +122,7 @@ const Index = () => {
             <div className="flex flex-col gap-1">
               <div className="mb-1">
                 <Hyperlink to={userURL} target="_blank">
-                  <div className="font-semibold text-green-500 text-sm md:text-base">
+                  <div className="font-semibold font-lato text-green-500 text-sm md:text-base">
                     Welcome,{" "}
                     <span className="underline-offset-4 underline">
                       {display_name
@@ -134,7 +134,7 @@ const Index = () => {
                   </div>
                 </Hyperlink>
                 <Hyperlink
-                  classname="text-white text-xs"
+                  classname="text-white text-xs font-montserrat"
                   target="_blank"
                   to="https://open.spotify.com"
                 >
@@ -142,7 +142,7 @@ const Index = () => {
                 </Hyperlink>
               </div>
               <Button
-                classname="bg-green-500 text-xs md:text-base text-white py-2 md:py-2"
+                classname="bg-green-500 text-xs md:text-base text-white py-2 md:py-2 font-montserrat"
                 onClick={toggleModal}
               >
                 Settings
@@ -211,13 +211,13 @@ const Index = () => {
             <div className="text-white text-center font-lato font-serif flex justify-center items-center">
               <div className="animate-bounce text-xl md:text-3xl">🏡</div>
               <h1 className="text-3xl md:text-5xl">
-                <span className="font-pacifico text-green-500">Fun</span>
+                <span className="font-pacifico text-green-500">Me</span>
                 ify
               </h1>
               <div className="animate-bounce text-xl md:text-3xl">🎧</div>
             </div>
             <p className="text-white text-xs text-center font-motserrat">
-              Fun-ify, Wrapped to Story
+              Me-ify, Wrapped Story
             </p>
 
             <div className="flex md:block items-center justify-between px-4 pb-6">

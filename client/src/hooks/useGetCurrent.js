@@ -55,10 +55,7 @@ const useGetCurrent = () => {
     };
 
     // Gunakan throttle untuk membatasi pemanggilan fetchCurrent
-    const throttledFetch = throttle(
-      fetchCurrent,
-      currentTrack.isPlaying ? 2000 : 30000
-    ); // Panggil sekali setiap 5 detik
+    const throttledFetch = throttle(fetchCurrent, 2000); // Panggil sekali setiap 5 detik
 
     const intervalId = setInterval(() => {
       if (!isPaused) {
@@ -70,7 +67,7 @@ const useGetCurrent = () => {
       clearInterval(intervalId);
       throttledFetch.cancel();
     };
-  }, []);
+  }, [isPaused]);
 
   return {
     currentTrack,
