@@ -11,9 +11,9 @@ const Modal = ({
   if (!isOpen) return null;
 
   const layoutClasses = {
-    default: "p-6 max-w-lg mx-auto bg-white rounded-lg shadow-md",
-    wide: "p-6 max-w-2xl mx-auto bg-white rounded-lg shadow-md",
-    narrow: "p-4 max-w-sm mx-auto bg-white rounded-lg shadow-md",
+    default:
+      "p-6 mx-auto bg-white rounded-lg shadow-md max-h-[80vh] overflow-y-auto ",
+    wide: "p-6 mx-auto bg-white rounded-lg shadow-md max-h-[80vh] overflow-y-auto ",
   };
 
   return (
@@ -23,7 +23,7 @@ const Modal = ({
           <h2 className="text-xl font-semibold">{title}</h2>
           <button
             onClick={toggleModal}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-gray-500 hover:text-gray-700 text-3xl"
           >
             &times;
           </button>

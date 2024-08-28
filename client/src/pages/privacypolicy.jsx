@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
   return (
     <div className="bg-slate-900 p-3 flex justify-center items-center pb-36">
       <Navbar></Navbar>
-      <div className="max-w-2xl">
+      <div className="max-w-2xl py-10">
         {/* PRIVACY POLICY */}
         <h1 className="text-white text-right text-xl font-montserrat font-bold mb-8">
           Privacy Policy
@@ -184,7 +184,7 @@ const PrivacyPolicy = () => {
         </p>
 
         {/* CONTACT ME/US */}
-        <h1 className="text-white text-left text-xl font-montserrat font-bold mt-16 mb-8">
+        <h1 className="text-white text-left text-xl font-montserrat font-bold mt-16 mb-2">
           Contact Me or Us
         </h1>
         <p className="text-white text-sm font-lato">
@@ -196,7 +196,7 @@ const PrivacyPolicy = () => {
             rel="noreferrer"
             className="text-blue-600"
           >
-            [Email Protected]
+            [vyanzll]
           </a>
         </p>
       </div>

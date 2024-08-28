@@ -21,15 +21,33 @@ const Index = () => {
     SCOPE,
     logout,
   } = useSpotifyAuth();
-
-  const display_name = data.display_name;
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { userPlaylist } = useGetPlaylist();
   const { currentTrack } = useGetCurrent();
 
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
+  const [selectedTerm, setSelectedTerm] = useState("short_term");
 
+  const handleTermChange = (term) => {
+    setSelectedTerm(term);
+  };
+
+  const display_name = data.display_name;
+
+  // Modal mana yang mau di hidupin
+  const [modalStates, setModalStates] = useState({
+    setting: false,
+    datatrack: false,
+  });
+
+  const toggleModal = (modalName) => {
+    setModalStates((prevStates) => ({
+      ...prevStates,
+      [modalName]: !prevStates[modalName],
+    }));
+  };
+
+  let number = 1;
+
+  //? Parsing Duration dari ms Ke format yang lebih  jelas DD:MM:HH
   let durationInSeconds = Math.floor(
     (currentTrack.duration - currentTrack.currentTime) / 1000
   );
@@ -37,12 +55,13 @@ const Index = () => {
   let formattedTime = [
     Math.floor(durationInSeconds / 3600)
       .toString()
-      .padStart(2, "0"), // Jam
+      .padStart(2, "0"),
     Math.floor((durationInSeconds % 3600) / 60)
       .toString()
-      .padStart(2, "0"), // Menit
-    (durationInSeconds % 60).toString().padStart(2, "0"), // Detik
+      .padStart(2, "0"),
+    (durationInSeconds % 60).toString().padStart(2, "0"),
   ].join(":");
+  //? Parsing Duration dari ms Ke format yang lebih  jelas DD:MM:HH
 
   return (
     <>
@@ -143,27 +162,11 @@ const Index = () => {
               </div>
               <Button
                 classname="bg-green-500 text-xs md:text-base text-white py-2 md:py-2 font-montserrat"
-                onClick={toggleModal}
+                onClick={() => toggleModal("setting")}
               >
                 Settings
               </Button>
             </div>
-
-            <Modal
-              isOpen={isModalOpen}
-              toggleModal={toggleModal}
-              title="Example Modal"
-              content={<p>This is the content of the modal.</p>}
-              footer={
-                <Button
-                  onClick={toggleModal}
-                  classname="bg-red-500 text-white px-4 py-2 rounded"
-                >
-                  Close
-                </Button>
-              }
-              layout="wide"
-            />
           </header>
 
           <div
@@ -210,7 +213,7 @@ const Index = () => {
           <main className="bg-slate-950 py-12">
             <div className="text-white text-center font-lato font-serif flex justify-center items-center">
               <div className="animate-bounce text-xl md:text-3xl">🏡</div>
-              <h1 className="text-3xl md:text-5xl">
+              <h1 className="text-3xl md:text-5xl font-lato font-extrabold">
                 <span className="font-pacifico text-green-500">Me</span>
                 ify
               </h1>
@@ -237,15 +240,168 @@ const Index = () => {
               </div>
             </div>
             <div className="flex justify-center items-center md:p-8 p-2">
-              <Hyperlink classname="text-white text-center border px-5 md:px-10 py-3 md:py-5 border-green-500 hover:bg-green-500 hover:text-black transition-colors duration-200">
+              <Button
+                onClick={() => toggleModal("datatrack")}
+                classname="text-white text-center border px-5 md:px-10 py-3 md:py-5 border-green-500 hover:bg-green-500 hover:text-black transition-colors duration-200"
+              >
                 More...
-              </Hyperlink>
+              </Button>
             </div>
           </main>
 
           <div className="bg-slate-700 flex justify-center items-center h-screen">
             <h1 className="text-white font-montserrat">NEXT FEATURE HERE</h1>
           </div>
+
+          <Modal
+            isOpen={modalStates.setting} // Hanya untuk 'setting' modal
+            toggleModal={() => toggleModal("setting")} // Ubah fungsi untuk toggle modal ini
+            title="Settings"
+            content={
+              <ul className="p-2">
+                <Hyperlink>
+                  <li className="mb-2 border border-green-500 p-1 md:p-5 hover:bg-green-500 hover:text-white active:bg-green-500 active:text-black">
+                    Edit Profile&apos;s
+                  </li>
+                </Hyperlink>
+                <Hyperlink>
+                  <li className="mb-2 border border-black p-1 md:p-5 hover:bg-green-500 hover:text-white active:bg-green-500 active:text-black">
+                    Open Spotify
+                  </li>
+                </Hyperlink>
+                <li>
+                  Contact Developer
+                  <ul>
+                    <Hyperlink to="https://wa.me/6281231196670" target="_blank">
+                      <li className="mb-2 border border-green-500 p-1 md:py-2 md:px-20 hover:bg-green-500 hover:text-white active:bg-green-500 active:text-black">
+                        WhatsApp
+                      </li>
+                    </Hyperlink>
+                    <Hyperlink
+                      to="https://instagram.com/vyanzll"
+                      target="_blank"
+                    >
+                      <li className="mb-2 border border-purple-500 p-1 md:py-2 md:px-20 hover:bg-purple-500 hover:text-white active:bg-green-500 active:text-black">
+                        Instagram
+                      </li>
+                    </Hyperlink>
+                  </ul>
+                </li>
+              </ul>
+            }
+            footer={
+              <Button
+                onClick={() => toggleModal("setting")}
+                classname="bg-red-500 text-white px-4 py-2 rounded"
+              >
+                Close
+              </Button>
+            }
+            layout="default"
+          />
+
+          <Modal
+            isOpen={modalStates.datatrack}
+            toggleModal={() => toggleModal("datatrack")}
+            title="Data Tracks"
+            content={
+              <div className="block justify-center items-center text-center text-xs md:text-base">
+                <div className="mb-4">
+                  {/* Tombol Term */}
+                  <Button
+                    onClick={() => handleTermChange("short_term")}
+                    classname={`px-2 py-1 rounded ${
+                      selectedTerm === "short_term"
+                        ? "bg-green-500 text-white"
+                        : "bg-gray-300 text-black"
+                    }`}
+                  >
+                    Short Term
+                  </Button>
+                  <Button
+                    onClick={() => handleTermChange("medium_term")}
+                    classname={`px-2 py-1 rounded mx-2 ${
+                      selectedTerm === "medium_term"
+                        ? "bg-green-500 text-white"
+                        : "bg-gray-300 text-black"
+                    }`}
+                  >
+                    Medium Term
+                  </Button>
+                  <Button
+                    onClick={() => handleTermChange("long_term")}
+                    classname={`px-2 py-1 rounded ${
+                      selectedTerm === "long_term"
+                        ? "bg-green-500 text-white"
+                        : "bg-gray-300 text-black"
+                    }`}
+                  >
+                    Long Term
+                  </Button>
+                </div>
+
+                <div className="overflow-x-auto w-full">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th
+                          scope="col"
+                          className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          #
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Track Name
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Artist
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Followers
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {/* DUMMY DATA */}
+                      <tr>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {number++}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          track name
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          artist morning in the cllub goodbye lol skibidi sigma
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          27348234783284324238473243278
+                        </td>
+                      </tr>
+                      {/* DUMMY DATA */}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            }
+            footer={
+              <Button
+                onClick={() => toggleModal("datatrack")}
+                classname="bg-red-500 text-white px-4 py-2 rounded"
+              >
+                Close
+              </Button>
+            }
+            layout="wide"
+          />
         </div>
       )}
     </>
