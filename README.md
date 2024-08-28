@@ -2,15 +2,15 @@
 
 Meify, Wrapped Story.
 
-* **Playlist To Story:** Now you can show off how your music taste is😍.... show it to your bully (make them scared)
-* **Easy To Use:** Meify built to fullfilled the User Experience without.... Developer Experience😭
-* **No Ads:** We don't ever mind to place an ads to this website, this project totally for our portofolio and just 4 fun! .
+- **Easy To Use:** Funify built to fullfilled the User Experience without.... Developer Experience😭
+- **Playlist To Story:** Now you can show off how your music taste is😍.... to your bully (make them scared)
+- **No Ads:** We don't never make this software to make any profit, this project totally for our portofolio adn just 4 fun! .
 
 ## Installation🚀
 
 Meify has been designed for "Easy To Use" from the start.
 
-* Use [Quick Start](https://meify.vercel.app) to get a start using this software.
+- Use [Quick Start](https://youtube.com) to get a start using this software.
 
 ## Documentation✨
 
