@@ -81,6 +81,7 @@ export const useSpotifyAuth = () => {
         setToken("");
         setError("Token is invalid or expired");
         localStorage.removeItem("token");
+        localStorage.removeItem("tokenExpire");
       } else {
         setError("Error fetching data, please try again later.");
       }

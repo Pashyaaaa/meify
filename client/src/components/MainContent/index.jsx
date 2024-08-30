@@ -46,6 +46,7 @@ const ContentItem = ({ res, type, number }) => {
             <img
               src="./dummyuser.jpeg"
               alt="Loading"
+              loading="lazy"
               className="w-16 md:w-24 lg:w-32 inset-0"
             />
           )}
@@ -94,7 +95,7 @@ const MainContent = ({ title, classname, type }) => {
     ));
   } else if (error) {
     child_content = (
-      <p className="text-white font-montserrat font-semibold text-center py-12">
+      <p className="text-white text-sm font-montserrat font-semibold text-center py-12">
         Error loading data.
       </p>
     );

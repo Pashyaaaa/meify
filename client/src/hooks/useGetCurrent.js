@@ -55,7 +55,7 @@ const useGetCurrent = () => {
     };
 
     // Gunakan throttle untuk membatasi pemanggilan fetchCurrent
-    const throttledFetch = throttle(fetchCurrent, 2000); // Panggil sekali setiap 5 detik
+    const throttledFetch = throttle(fetchCurrent, 5000); // Panggil sekali setiap 5 detik
 
     const intervalId = setInterval(() => {
       if (!isPaused) {
