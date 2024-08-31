@@ -170,9 +170,9 @@ const MainContent = ({ title, classname, type }) => {
           {title}
         </h2>
       </MotionTemplate>
-      <ul className="flex flex-col md:flex-row justify-evenly">
+      <div className="flex flex-col md:flex-row justify-evenly">
         {child_content}
-      </ul>
+      </div>
     </div>
   );
 };

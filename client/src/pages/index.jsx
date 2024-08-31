@@ -241,7 +241,7 @@ const Index = () => {
               </div>
             </MotionTemplate>
             <div className="text-current">
-              <ul className="text-white font-lato">
+              <div className="text-white font-lato">
                 <MotionTemplate
                   duration={0.5}
                   delay={0.25}
@@ -252,9 +252,9 @@ const Index = () => {
                   type="spring"
                   bounce={0.4}
                 >
-                  <li>
+                  <div>
                     Currently {currentTrack.isPlaying ? "Playing" : "Paused"}:
-                  </li>
+                  </div>
                 </MotionTemplate>
                 <MotionTemplate
                   duration={0.5}
@@ -266,12 +266,12 @@ const Index = () => {
                   type="spring"
                   bounce={0.4}
                 >
-                  <li className="font-mono text-xs md:text-base font-montserrat">
+                  <div className="font-mono text-xs md:text-base font-montserrat">
                     {currentTrack.artist ? currentTrack.artist : "Spotify"} -{" "}
                     {currentTrack.title
                       ? currentTrack.title
                       : "Ads Or Not Playing Anything"}
-                  </li>
+                  </div>
                 </MotionTemplate>
                 <MotionTemplate
                   duration={0.5}
@@ -283,9 +283,9 @@ const Index = () => {
                   type="spring"
                   bounce={0.4}
                 >
-                  <li className="text-xs font-lato">{formattedTime}</li>
+                  <div className="text-xs font-lato">{formattedTime}</div>
                 </MotionTemplate>
-              </ul>
+              </div>
             </div>
           </div>
 
