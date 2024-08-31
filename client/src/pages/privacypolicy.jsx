@@ -1,15 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { redirect } from "react-router-dom";
-import Button from "../components/Button";
-import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import Hyperlink from "../components/Hyperlink";
+import { motion, useIsPresent } from "framer-motion";
 
 const PrivacyPolicy = () => {
-  const [name, setName] = useState("");
-
+  const isPresent = useIsPresent();
   return (
-    <div className="bg-slate-900 p-3 flex justify-center items-center pb-36">
+    <div className="bg-slate-900 p-3 flex justify-center items-center pb-10">
       <Navbar></Navbar>
       <div className="max-w-2xl py-10">
         {/* PRIVACY POLICY */}
@@ -200,6 +196,16 @@ const PrivacyPolicy = () => {
           </a>
         </p>
       </div>
+      <motion.div
+        initial={{ scaleX: 1 }}
+        animate={{
+          scaleX: 0,
+          transition: { duration: 0.5, ease: "circOut" },
+        }}
+        exit={{ scaleX: 1, transition: { duration: 0.5, ease: "circIn" } }}
+        style={{ originX: isPresent ? 0 : 1 }}
+        className="fixed top-0 right-0 bottom-0 left-0 bg-green-700 z-20"
+      />
     </div>
   );
 };

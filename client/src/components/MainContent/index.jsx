@@ -2,24 +2,39 @@
 import useGetTop from "../../hooks/useGetTop";
 import Hyperlink from "../Hyperlink";
 import { useState } from "react";
+import MotionTemplate from "../MotionTemplate";
+import { easeInOut } from "framer-motion";
 
 const SkeletonItem = ({ number }) => (
-  <li className="flex justify-center items-center gap-4 mb-12">
-    <p className="text-white text-2xl font-bold">{number}.</p>
-    <div id="banner">
-      <img
-        src="./dummyuser.jpeg"
-        alt="Skeleton"
-        className="w-16 md:w-24 lg:w-32"
-      />
-      <p className="text-[0.6rem] break-all md:text-xs text-white">
-        Loading...
-      </p>
-      <p className="text-[0.5rem] break-all md:text-xs text-white">
-        [Loading...]
-      </p>
+  <MotionTemplate
+    duration={1}
+    delay={0.25}
+    x={0}
+    initScale={1}
+    scale={0}
+    vh={false}
+    inf={false}
+    opacity={1}
+    type="spring"
+    bounce={1}
+  >
+    <div className="flex justify-center items-center gap-4 mb-12">
+      <p className="text-white text-2xl font-bold">{number}.</p>
+      <div id="banner">
+        <img
+          src="./dummyuser.jpeg"
+          alt="Skeleton"
+          className="w-16 md:w-24 lg:w-32"
+        />
+        <p className="text-[0.6rem] break-all md:text-xs text-white">
+          Loading...
+        </p>
+        <p className="text-[0.5rem] break-all md:text-xs text-white">
+          [Loading...]
+        </p>
+      </div>
     </div>
-  </li>
+  </MotionTemplate>
 );
 
 const ContentItem = ({ res, type, number }) => {
@@ -38,8 +53,25 @@ const ContentItem = ({ res, type, number }) => {
   };
 
   return (
-    <Hyperlink key={res.id} to={res.external_urls.spotify} target="_blank">
-      <li className="flex justify-center items-center gap-4 mb-12 md:mb-0">
+    <MotionTemplate
+      duration={0.5}
+      delay={0}
+      x={0}
+      scale={1}
+      initScale={0}
+      vh={true}
+      inf={false}
+      opacity={1}
+      type="spring"
+      bounce={0.4}
+      ease={easeInOut}
+    >
+      <Hyperlink
+        key={res.id}
+        to={res.external_urls.spotify}
+        target="_blank"
+        classname="flex justify-center items-center gap-4 mb-12 md:mb-0"
+      >
         <p className="text-white text-2xl font-bold">{number}.</p>
         <div id="banner" className="group relative">
           {loadingImage && (
@@ -77,8 +109,8 @@ const ContentItem = ({ res, type, number }) => {
               : `Followers: ${res.followers.total.toLocaleString()}`}
           </p>
         </div>
-      </li>
-    </Hyperlink>
+      </Hyperlink>
+    </MotionTemplate>
   );
 };
 
@@ -122,11 +154,22 @@ const MainContent = ({ title, classname, type }) => {
 
   return (
     <div className="flex flex-col md:block justify-center items-center w-full mt-8 md:mb-16 md:mt-12">
-      <h2
-        className={`${classname} first-letter:text-green-500 first-letter:text-4xl text-white text-md sm:text-lg md:text-3xl font-semibold`}
+      <MotionTemplate
+        duration={0.8}
+        delay={0.25}
+        x={type == "track" ? -50 : 50}
+        vh={true}
+        inf={false}
+        opacity={0}
+        type="spring"
+        bounce={0.4}
       >
-        {title}
-      </h2>
+        <h2
+          className={`${classname} first-letter:text-green-500 first-letter:text-4xl text-white text-md sm:text-lg md:text-3xl font-semibold`}
+        >
+          {title}
+        </h2>
+      </MotionTemplate>
       <ul className="flex flex-col md:flex-row justify-evenly">
         {child_content}
       </ul>
