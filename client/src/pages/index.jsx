@@ -197,42 +197,29 @@ const Index = () => {
             id="currently-playing"
             className="relative md:absolute md:-top-12 md:-left-12 -left-8 pt-3 text-sm md:text-md flex justify-start md:justify-center lg:justify-start items-center gap-4"
           >
-            <MotionTemplate
-              duration={0.5}
-              delay={0.25}
-              x={-100}
-              vh={false}
-              inf={false}
-              opacity={0}
-              type="spring"
-              bounce={0.4}
+            <div
+              id="image-current"
+              className={`relative p-3 ${
+                currentTrack.isPlaying && currentTrack.poster
+                  ? "animate-spin"
+                  : ""
+              }`}
             >
-              <div
-                id="image-current"
-                className={`relative p-3 ${
-                  currentTrack.isPlaying && currentTrack.poster
-                    ? "animate-spin"
-                    : ""
-                }`}
-              >
-                <img
-                  src="./cd-icon.png"
-                  alt="Cd's"
-                  loading="lazy"
-                  className={`w-28 md:w-40 md:h-40`}
-                />
-                <img
-                  src={
-                    currentTrack.poster
-                      ? currentTrack.poster
-                      : "./dummyuser.jpeg"
-                  }
-                  alt="Unrender"
-                  loading="lazy"
-                  className="absolute rounded-full w-12 h-12 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                />
-              </div>
-            </MotionTemplate>
+              <img
+                src="./cd-icon.png"
+                alt="Cd's"
+                loading="lazy"
+                className={`w-28 md:w-40 md:h-40`}
+              />
+              <img
+                src={
+                  currentTrack.poster ? currentTrack.poster : "./dummyuser.jpeg"
+                }
+                alt="Unrender"
+                loading="lazy"
+                className="absolute rounded-full w-12 h-12 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              />
+            </div>
             <div className="text-current">
               <div className="text-white font-lato">
                 <MotionTemplate
