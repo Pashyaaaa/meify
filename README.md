@@ -2,9 +2,9 @@
 
 Meify, Wrapped Story.
 
-- **Easy To Use:** Funify built to fullfilled the User Experience without.... Developer Experience😭
 - **Playlist To Story:** Now you can show off how your music taste is😍.... to your bully (make them scared)
-- **No Ads:** We don't never make this software to make any profit, this project totally for our portofolio adn just 4 fun! .
+- **Easy To Use:** Meify built to fullfilled the User Experience without.... Developer Experience😭
+- **No Ads:** We don't ever mind to put ads on this website, this project totally for my portofolio and just 4 fun! .
 
 ## Installation🚀
 
