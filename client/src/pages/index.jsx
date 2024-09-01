@@ -8,13 +8,7 @@ import MainContent from "../components/MainContent";
 import { useState } from "react";
 import useGetTop from "../hooks/useGetTop";
 import ShareButton from "../components/ShareButton";
-import {
-  easeIn,
-  motion,
-  useIsPresent,
-  useScroll,
-  useSpring,
-} from "framer-motion";
+import { motion, useIsPresent, useScroll, useSpring } from "framer-motion";
 import Navbar from "../components/Navbar";
 import MotionTemplate from "../components/MotionTemplate";
 
@@ -205,14 +199,13 @@ const Index = () => {
           >
             <MotionTemplate
               duration={0.5}
-              delay={0}
+              delay={0.25}
               x={-100}
               vh={false}
               inf={false}
-              opacity={1}
+              opacity={0}
               type="spring"
-              bounce={1}
-              ease={easeIn}
+              bounce={0.4}
             >
               <div
                 id="image-current"
