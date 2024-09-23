@@ -28,7 +28,3 @@ The main purpose of this repository is to make new inovation in music industry, 
 ### Credit
 
 Shout out to SPOTIFY [[Click Here To Open Spotify]](https://open.spotify.com).
-
-### License
-
-Meify is NOT in [any licensed](./LICENSE).
