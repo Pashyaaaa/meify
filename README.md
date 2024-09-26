@@ -8,7 +8,7 @@ Meify, Wrapped Story.
 
 ## Installation🚀
 
-Meify has been designed for "Easy To Use" from the start.
+Meify has been designed for "Easy To Use" And "Flexible".
 
 - Use [Quick Start](https://youtube.com) to get a start using this software.
 
