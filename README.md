@@ -3,7 +3,7 @@
 Meify, Wrapped Story.
 
 - **Playlist To Story:** Now you can show off how your music taste is😍.... to your bully (make them scared)
-- **Easy To Use:** Meify built to fullfilled the User Experience without.... Developer Experience😭
+- **Easy To Use:** Meify built to fullfilled the User Experience.
 - **No Ads:** We don't ever mind to put ads on this website, this project totally for my portofolio and just 4 fun! .
 
 ## Installation🚀
