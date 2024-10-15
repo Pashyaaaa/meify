@@ -1,1 +1,1 @@
-TODO: Make Character Randomize
+TODO: Make Character(Personal Chain KD) Randomize
