@@ -21,6 +21,7 @@ Check out the [Getting Started](https://meify.vercel.app) page for a quick overv
 ## Contributing
 
 The main purpose of this repository is to make new inovation in music industry, and make spotify wider. Development of Spotifly happens in the open on GitHub, and we are grateful to the community for contributing bugfixes and improvements.
+[Pull Request Here](https://github.com/Pashyaaaa/meify)
 [Donate Here](https://saweria.co/Vyanz)
 
 ### Credit
