@@ -4,7 +4,7 @@ Meify, Wrapped Story.
 
 - **Playlist To Story:** Now you can show off how your music taste is😍
 - **Easy To Use:** Meify built to fullfilled the User Experience.
-- **No Ads:** This project totally for my portofolio and just 4 fun! .
+- **No Ads:** This project totally for my portofolio and just 4 fun! ..
 
 ## Installation🚀
 
