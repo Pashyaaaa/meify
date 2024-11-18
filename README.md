@@ -1,6 +1,6 @@
 # [Meify](https://react.dev/) &middot; [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://www.npmjs.com/package/react) [![(Runtime) Build and Test](https://github.com/facebook/react/actions/workflows/runtime_build_and_test.yml/badge.svg)](https://github.com/facebook/react/actions/workflows/runtime_build_and_test.yml) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://legacy.reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
 
-Meify, Wrapped Story......
+Meify, Wrapped Story.
 
 - **Playlist To Story:** Now you can show off how your music taste is😍
 - **Easy To Use:** Meify built to fullfilled the User Experience.
